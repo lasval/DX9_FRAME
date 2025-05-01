@@ -24,6 +24,7 @@ public:
 	}
 
 	void Show_LoadingText() {
+		int a = 0;
 		SetWindowText(g_hWnd, m_szLoadingText);
 	}
 

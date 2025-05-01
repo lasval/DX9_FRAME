@@ -38,6 +38,42 @@ HRESULT CObject_Manager::Add_GameObject_ToLayer(_uint iLayerLevelIndex, const _w
     return S_OK;
 }
 
+void CObject_Manager::Priority_Update(_float fTimeDelta)
+{
+    for (size_t i = 0; i < m_iNumLevels; i++)
+    {
+        for (auto& Pair : m_pLayers[i])
+        {
+            if (nullptr != Pair.second)
+                Pair.second->Priority_Update(fTimeDelta);
+        }
+    }
+}
+
+void CObject_Manager::Update(_float fTimeDelta)
+{
+    for (size_t i = 0; i < m_iNumLevels; i++)
+    {
+        for (auto& Pair : m_pLayers[i])
+        {
+            if (nullptr != Pair.second)
+                Pair.second->Update(fTimeDelta);
+        }
+    }
+}
+
+void CObject_Manager::Late_Update(_float fTimeDelta)
+{
+    for (size_t i = 0; i < m_iNumLevels; i++)
+    {
+        for (auto& Pair : m_pLayers[i])
+        {
+            if (nullptr != Pair.second)
+                Pair.second->Late_Update(fTimeDelta);
+        }
+    }
+}
+
 CLayer* CObject_Manager::Find_Layer(_uint iLayerLevelIndex, const _wstring& strLayerTag)
 {
     auto iter = m_pLayers[iLayerLevelIndex].find(strLayerTag);

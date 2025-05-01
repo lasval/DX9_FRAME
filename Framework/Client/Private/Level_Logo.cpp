@@ -50,7 +50,7 @@ CLevel_Logo* CLevel_Logo::Create(LPDIRECT3DDEVICE9 pGraphic_Device)
 {
 	CLevel_Logo* pInstance = new CLevel_Logo(pGraphic_Device);
 
-	if (FAILED(TEXT("Failed to Created : CLevel_Logo")))
+	if (FAILED(pInstance->Initialize()))
 	{
 		MSG_BOX(TEXT("Failed to Created : CLevel_Logo"));
 		Safe_Release(pInstance);

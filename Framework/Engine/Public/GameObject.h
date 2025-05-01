@@ -21,6 +21,7 @@ public:
 
 protected:
 	LPDIRECT3DDEVICE9			m_pGraphic_Device = { nullptr };
+	class CGameInstance*		m_pGameInstance = { nullptr };
 
 public:
 	virtual CGameObject* Clone(void* pArg) = 0;
