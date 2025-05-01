@@ -1,5 +1,6 @@
 #include "BackGround.h"
-#include "GameObject.h"
+
+#include "GameInstance.h"
 
 CBackGround::CBackGround(LPDIRECT3DDEVICE9 pGraphic_Device)
     : CGameObject { pGraphic_Device }
@@ -23,14 +24,19 @@ HRESULT CBackGround::Initialize(void* pArg)
 
 void CBackGround::Priority_Update(_float fTimeDelta)
 {
+    // 테스트 용
+    int a = 10;
 }
 
 void CBackGround::Update(_float fTimeDelta)
 {
+    // 테스트 용
+    int a = 10;
 }
 
 void CBackGround::Late_Update(_float fTimeDelta)
 {
+    m_pGameInstance->Add_RenderGroup(RENDERGROUP::RG_PRIORITY, this);
 }
 
 HRESULT CBackGround::Render()

@@ -49,6 +49,9 @@
     <Filter Include="01.Utility\03.GameObject\Manager\Layers">
       <UniqueIdentifier>{c902d47d-04e3-4c42-af56-677139b86b58}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\04.Renderer">
+      <UniqueIdentifier>{89643ba6-dc64-4298-8b75-5bfd3c904090}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Engine_Macro.h">
@@ -96,6 +99,10 @@
     <ClInclude Include="..\Public\Layer.h">
       <Filter>01.Utility\03.GameObject\Manager\Layers</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="..\Public\Renderer.h">
+      <Filter>01.Utility\04.Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -125,5 +132,11 @@
     <ClCompile Include="..\Private\Layer.cpp">
       <Filter>01.Utility\03.GameObject\Manager\Layers</Filter>
     </ClCompile>
+    <ClCompile Include="..\Private\Renderer.cpp">
+      <Filter>01.Utility\04.Renderer</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Engine.rc" />
   </ItemGroup>
 </Project>

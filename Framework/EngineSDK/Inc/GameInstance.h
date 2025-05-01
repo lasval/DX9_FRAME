@@ -31,11 +31,15 @@ public:
 public:
 	HRESULT Add_GameObject_ToLayer(_uint iLayerLevelIndex, const _wstring& strLayerTag, _uint iPrototypeLevelIndex, const _wstring strPrototypeTag, void* pArg = nullptr);
 
+public:
+	HRESULT Add_RenderGroup(RENDERGROUP eRenderGroup, class CGameObject* pRenderObject);
+
 private:
 	class CGraphic_Device*		m_pGraphic_Device = { nullptr };
 	class CLevel_Manager*		m_pLevel_Manager = { nullptr };
 	class CObject_Manager*		m_pObject_Manager = { nullptr };
 	class CPrototype_Manager*	m_pPrototype_Manager = { nullptr };
+	class CRenderer*			m_pRenderer = { nullptr };
 
 public:
 	virtual void Free() override;

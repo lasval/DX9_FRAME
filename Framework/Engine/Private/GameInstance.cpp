@@ -4,6 +4,7 @@
 #include "Level_Manager.h"
 #include "Prototype_Manager.h"
 #include "Object_Manager.h"
+#include "Renderer.h"
 
 IMPLEMENT_SINGLETON(CGameInstance)
 
@@ -30,11 +31,19 @@ HRESULT CGameInstance::Initialize_Engine(const ENGINE_DESC& EngineDesc, LPDIRECT
     if (nullptr == m_pObject_Manager)
         return E_FAIL;
 
+    m_pRenderer = CRenderer::Create(*ppOut);
+    if (nullptr == m_pRenderer)
+        return E_FAIL;
+
     return S_OK;
 }
 
 void CGameInstance::Update_Engine(_float fTimeDelta)
 {
+    m_pObject_Manager->Priority_Update(fTimeDelta);
+    m_pObject_Manager->Update(fTimeDelta);
+    m_pObject_Manager->Late_Update(fTimeDelta);
+
     m_pLevel_Manager->Update(fTimeDelta);
 }
 
@@ -53,6 +62,9 @@ void CGameInstance::Render_Begin(D3DXCOLOR Color)
 HRESULT CGameInstance::Draw()
 {
     if (nullptr == m_pLevel_Manager)
+        return E_FAIL;
+
+    if (FAILED(m_pRenderer->Draw()))
         return E_FAIL;
 
     if (FAILED(m_pLevel_Manager->Render()))
@@ -99,6 +111,14 @@ HRESULT CGameInstance::Add_GameObject_ToLayer(_uint iLayerLevelIndex, const _wst
     return m_pObject_Manager->Add_GameObject_ToLayer(iLayerLevelIndex, strLayerTag, iPrototypeLevelIndex, strPrototypeTag, pArg);
 }
 
+HRESULT CGameInstance::Add_RenderGroup(RENDERGROUP eRenderGroup, CGameObject* pRenderObject)
+{
+    if (nullptr == m_pRenderer)
+        return E_FAIL;
+
+    return m_pRenderer->Add_RenderGroup(eRenderGroup, pRenderObject);
+}
+
 void CGameInstance::Free()
 {
     __super::Free();
@@ -107,5 +127,6 @@ void CGameInstance::Free()
     Safe_Release(m_pGraphic_Device);
     Safe_Release(m_pPrototype_Manager);
     Safe_Release(m_pObject_Manager);
+    Safe_Release(m_pRenderer);
 
 }
