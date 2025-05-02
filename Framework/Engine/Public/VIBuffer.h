@@ -19,7 +19,7 @@ protected:
 	LPDIRECT3DDEVICE9				m_pVB = { nullptr };
 
 public:
-	virtual CVIBuffer* Clone(void* pArg) = 0;
+	virtual CComponent* Clone(void* pArg) = 0;
 	virtual void Free() override;
 };
 

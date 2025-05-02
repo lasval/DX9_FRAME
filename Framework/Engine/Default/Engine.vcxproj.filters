@@ -117,6 +117,9 @@
     <ClInclude Include="..\Public\VIBuffer.h">
       <Filter>01.Utility\05.Component\VIBuffer</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\VIBuffer_Rect.h">
+      <Filter>01.Utility\05.Component\VIBuffer\Rect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -154,6 +157,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\VIBuffer.cpp">
       <Filter>01.Utility\05.Component\VIBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\VIBuffer_Rect.cpp">
+      <Filter>01.Utility\05.Component\VIBuffer\Rect</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
