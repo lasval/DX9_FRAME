@@ -42,6 +42,7 @@ private:
 	class CRenderer*			m_pRenderer = { nullptr };
 
 public:
+	void Release_Engine();
 	virtual void Free() override;
 };
 

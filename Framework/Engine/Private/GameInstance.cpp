@@ -119,14 +119,17 @@ HRESULT CGameInstance::Add_RenderGroup(RENDERGROUP eRenderGroup, CGameObject* pR
     return m_pRenderer->Add_RenderGroup(eRenderGroup, pRenderObject);
 }
 
-void CGameInstance::Free()
+void CGameInstance::Release_Engine()
 {
-    __super::Free();
-
+    Release();
     Safe_Release(m_pLevel_Manager);
     Safe_Release(m_pGraphic_Device);
     Safe_Release(m_pPrototype_Manager);
     Safe_Release(m_pObject_Manager);
     Safe_Release(m_pRenderer);
+}
 
+void CGameInstance::Free()
+{
+    __super::Free();
 }
