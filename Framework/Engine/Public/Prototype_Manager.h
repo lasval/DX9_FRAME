@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Base.h"
+#include "VIBuffer_Rect.h"
 
 BEGIN(Engine)
 
@@ -12,16 +12,17 @@ private:
 
 public:
 	HRESULT Initialize(_uint iNumLevels);
-	HRESULT Add_Prototype(_uint iPrototypeLevelIndex, const _wstring& strPrototypeTag, class CGameObject* pPrototype );
-	class CGameObject* Clone_Prototype(_uint iPrototypeLevelIndex, const _wstring& strPrototypeTag, void* pArg);
+	HRESULT Add_Prototype(_uint iPrototypeLevelIndex, const _wstring& strPrototypeTag, class CBase* pPrototype );
+	class CBase* Clone_Prototype(PROTOTYPE ePrototype, _uint iPrototypeLevelIndex, const _wstring& strPrototypeTag, void* pArg);
+	void Clear(_uint iLevelIndex);
 
 private:
 	_uint										m_iNumLevels = { };
-	map<const _wstring, class CGameObject*>*	m_pPrototypes = { nullptr };
-	typedef map<const _wstring, class CGameObject*> PROTOTYPES;
+	map<const _wstring, class CBase*>*	m_pPrototypes = { nullptr };
+	typedef map<const _wstring, class CBase*> PROTOTYPES;
 
 private:
-	class CGameObject* Find_Prototype(_uint iPrototypeLevelIndex, const _wstring& strPrototypeTag);
+	class CBase* Find_Prototype(_uint iPrototypeLevelIndex, const _wstring& strPrototypeTag);
 
 public:
 	static CPrototype_Manager* Create(_uint iNumLevels);

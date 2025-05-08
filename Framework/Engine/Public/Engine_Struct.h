@@ -12,6 +12,12 @@ namespace Engine
 		unsigned int	iWinSizeX, iWinSizeY;
 		unsigned int	iNumLevels;
 	}ENGINE_DESC;
+
+	typedef struct tagVertexPosTex
+	{
+		D3DXVECTOR3		vPosition;
+		D3DXVECTOR2		vTexcoord;
+	}VTXPOSTEX;
 	
 }
 

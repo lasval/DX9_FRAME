@@ -22,6 +22,9 @@ HRESULT CMainApp::Initialize()
 	if (FAILED(m_pGameInstance->Initialize_Engine(EngineDesc, &m_pGraphic_Device)))
 		return E_FAIL;
 
+	if (FAILED(Ready_Prototype_ForStatic()))
+		return E_FAIL;
+
 	if (FAILED(Start_Level(LEVEL::LEVEL_LOGO)))
 		return E_FAIL;
 
@@ -40,6 +43,15 @@ HRESULT CMainApp::Render()
 	m_pGameInstance->Draw();
 
 	m_pGameInstance->Render_End();
+
+	return S_OK;
+}
+
+HRESULT CMainApp::Ready_Prototype_ForStatic()
+{
+	
+	if (FAILED(m_pGameInstance->Add_Prototype(ENUM_CLASS(LEVEL::LEVEL_STATIC), TEXT("Prototype_Component_VIBuffer_Rect"), CVIBuffer_Rect::Create(m_pGraphic_Device))))
+		return E_FAIL;
 
 	return S_OK;
 }

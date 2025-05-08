@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Base.h"
+#include "Prototype_Manager.h"
 
 BEGIN(Engine)
 
@@ -25,8 +25,8 @@ public:
 	HRESULT Open_Level(_uint iLevelID, class CLevel* pNewLevel);
 
 public:
-	HRESULT Add_Prototype(_uint iPrototypeLevelIndex, const _wstring& strPrototypeTag, class CGameObject* pPrototype);
-	class CGameObject* Clone_Prototype(_uint iPrototypeLevelIndex, const _wstring& strPrototypeTag, void* pArg = nullptr);
+	HRESULT Add_Prototype(_uint iPrototypeLevelIndex, const _wstring& strPrototypeTag, class CBase* pPrototype);
+	class CBase* Clone_Prototype(PROTOTYPE ePrototype, _uint iPrototypeLevelIndex, const _wstring& strPrototypeTag, void* pArg = nullptr);
 
 public:
 	HRESULT Add_GameObject_ToLayer(_uint iLayerLevelIndex, const _wstring& strLayerTag, _uint iPrototypeLevelIndex, const _wstring strPrototypeTag, void* pArg = nullptr);
