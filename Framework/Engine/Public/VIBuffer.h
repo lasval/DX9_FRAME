@@ -14,9 +14,16 @@ protected:
 public:
 	virtual HRESULT Initialize_Prototype() override;
 	virtual HRESULT Initialize(void* pArg) override;
+	virtual HRESULT Bind_Buffers();
+	virtual HRESULT Render();
 
 protected:
-	LPDIRECT3DDEVICE9				m_pVB = { nullptr };
+	LPDIRECT3DVERTEXBUFFER9			m_pVB = { nullptr };
+	_uint							m_iNumVertices = { };
+	_uint							m_iVertexStride = { };
+	_uint							m_iFVF = { };
+	D3DPRIMITIVETYPE				m_ePrimitiveType = { };
+	_uint							m_iNumPrimitive = { };
 
 public:
 	virtual CComponent* Clone(void* pArg) = 0;

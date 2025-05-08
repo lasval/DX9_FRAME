@@ -49,6 +49,9 @@ void CGameInstance::Update_Engine(_float fTimeDelta)
 
 HRESULT CGameInstance::Clear_Resources(_uint iClearLevelID)
 {
+    m_pPrototype_Manager->Clear(iClearLevelID);
+
+    m_pObject_Manager->Clear(iClearLevelID);
 
     return S_OK;
 }
@@ -87,7 +90,7 @@ HRESULT CGameInstance::Open_Level(_uint iLevelID, CLevel* pNewLevel)
     return m_pLevel_Manager->Open_Level(iLevelID, pNewLevel);
 }
 
-HRESULT CGameInstance::Add_Prototype(_uint iPrototypeLevelIndex, const _wstring& strPrototypeTag, CGameObject* pPrototype)
+HRESULT CGameInstance::Add_Prototype(_uint iPrototypeLevelIndex, const _wstring& strPrototypeTag, CBase* pPrototype)
 {
     if (nullptr == m_pPrototype_Manager)
         return E_FAIL;
@@ -95,12 +98,12 @@ HRESULT CGameInstance::Add_Prototype(_uint iPrototypeLevelIndex, const _wstring&
     return m_pPrototype_Manager->Add_Prototype(iPrototypeLevelIndex, strPrototypeTag, pPrototype);
 }
 
-CGameObject* CGameInstance::Clone_Prototype(_uint iPrototypeLevelIndex, const _wstring& strPrototypeTag, void* pArg)
+CBase* CGameInstance::Clone_Prototype(PROTOTYPE ePrototype, _uint iPrototypeLevelIndex, const _wstring& strPrototypeTag, void* pArg)
 {
     if (nullptr == m_pPrototype_Manager)
         return nullptr;
 
-    return m_pPrototype_Manager->Clone_Prototype(iPrototypeLevelIndex, strPrototypeTag, pArg);
+    return m_pPrototype_Manager->Clone_Prototype(ePrototype, iPrototypeLevelIndex, strPrototypeTag, pArg);
 }
 
 HRESULT CGameInstance::Add_GameObject_ToLayer(_uint iLayerLevelIndex, const _wstring& strLayerTag, _uint iPrototypeLevelIndex, const _wstring strPrototypeTag, void* pArg)

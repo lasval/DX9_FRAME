@@ -1,5 +1,6 @@
 #include "Prototype_Manager.h"
 #include "GameObject.h"
+#include "Component.h"
 
 #include "GameInstance.h"
 
@@ -16,7 +17,7 @@ HRESULT CPrototype_Manager::Initialize(_uint iNumLevels)
 	return S_OK;
 }
 
-HRESULT CPrototype_Manager::Add_Prototype(_uint iPrototypeLevelIndex, const _wstring& strPrototypeTag, CGameObject* pPrototype)
+HRESULT CPrototype_Manager::Add_Prototype(_uint iPrototypeLevelIndex, const _wstring& strPrototypeTag, CBase* pPrototype)
 {
 	if (nullptr == m_pPrototypes ||
 		m_iNumLevels <= iPrototypeLevelIndex ||
@@ -28,21 +29,39 @@ HRESULT CPrototype_Manager::Add_Prototype(_uint iPrototypeLevelIndex, const _wst
 	return S_OK;
 }
 
-CGameObject* CPrototype_Manager::Clone_Prototype(_uint iPrototypeLevelIndex, const _wstring& strPrototypeTag, void* pArg)
+CBase* CPrototype_Manager::Clone_Prototype(PROTOTYPE ePrototype, _uint iPrototypeLevelIndex, const _wstring& strPrototypeTag, void* pArg)
 {
-	CGameObject* pPrototype = Find_Prototype(iPrototypeLevelIndex, strPrototypeTag);
+	CBase* pPrototype = Find_Prototype(iPrototypeLevelIndex, strPrototypeTag);
 
 	if (nullptr == pPrototype)
 		return nullptr;
 
-	CGameObject*	pGameObject = pPrototype->Clone(pArg);
-	if (nullptr == pGameObject)
+	CBase* pBase = { nullptr };
+
+	if (PROTOTYPE::GAMEOBJECT == ePrototype)
+		pBase = dynamic_cast<CGameObject*>(pPrototype)->Clone(pArg);
+	else
+		pBase = dynamic_cast<CComponent*>(pPrototype)->Clone(pArg);
+
+	if (nullptr == pBase)
 		return nullptr;
 
-	return pGameObject;
+	return pBase;
 }
 
-CGameObject* CPrototype_Manager::Find_Prototype(_uint iPrototypeLevelIndex, const _wstring& strPrototypeTag)
+void CPrototype_Manager::Clear(_uint iLevelIndex)
+{
+	if (iLevelIndex >= m_iNumLevels)
+		return;
+
+	for (auto& Pair : m_pPrototypes[iLevelIndex])
+		Safe_Release(Pair.second);
+
+	m_pPrototypes[iLevelIndex].clear();
+
+}
+
+CBase* CPrototype_Manager::Find_Prototype(_uint iPrototypeLevelIndex, const _wstring& strPrototypeTag)
 {
 	auto iter = m_pPrototypes[iPrototypeLevelIndex].find(strPrototypeTag);
 

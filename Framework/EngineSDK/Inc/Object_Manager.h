@@ -16,6 +16,7 @@ public:
 	void Priority_Update(_float fTimeDelta);
 	void Update(_float fTimeDelta);
 	void Late_Update(_float fTimeDelta);
+	void Clear(_uint iLevelIndex);
 
 private:
 	class CGameInstance*					m_pGameInstance = { nullptr };
