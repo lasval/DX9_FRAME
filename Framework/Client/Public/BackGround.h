@@ -4,6 +4,7 @@
 #include "GameObject.h"
 
 BEGIN(Engine)
+class CTransform;
 class CVIBuffer_Rect;
 END
 
@@ -26,6 +27,7 @@ public:
 
 private:
 	CVIBuffer_Rect*				m_pVIBufferCom = { nullptr };
+	CTransform*					m_pTransformCom = { nullptr };
 
 private:
 	HRESULT Ready_Components();

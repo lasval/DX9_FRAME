@@ -44,8 +44,6 @@ void CBackGround::Late_Update(_float fTimeDelta)
 
 HRESULT CBackGround::Render()
 {
-    m_pGraphic_Device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-
     m_pVIBufferCom->Bind_Buffers();
 
     m_pVIBufferCom->Render();

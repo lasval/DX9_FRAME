@@ -61,6 +61,9 @@
     <Filter Include="01.Utility\05.Component\VIBuffer\Rect">
       <UniqueIdentifier>{3664ad62-2d12-4072-b500-e66420d44d8a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\05.Component\Transform">
+      <UniqueIdentifier>{af36f4bb-64e6-41b4-97c8-0bd10ebb577b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Engine_Macro.h">
@@ -120,6 +123,9 @@
     <ClInclude Include="..\Public\VIBuffer_Rect.h">
       <Filter>01.Utility\05.Component\VIBuffer\Rect</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Transform.h">
+      <Filter>01.Utility\05.Component\Transform</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -160,6 +166,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\VIBuffer_Rect.cpp">
       <Filter>01.Utility\05.Component\VIBuffer\Rect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Transform.cpp">
+      <Filter>01.Utility\05.Component\Transform</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
