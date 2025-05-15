@@ -22,6 +22,8 @@ HRESULT CMainApp::Initialize()
 	if (FAILED(m_pGameInstance->Initialize_Engine(EngineDesc, &m_pGraphic_Device)))
 		return E_FAIL;
 
+	m_pGraphic_Device->SetRenderState(D3DRS_LIGHTING, FALSE);
+
 	if (FAILED(Ready_Prototype_ForStatic()))
 		return E_FAIL;
 

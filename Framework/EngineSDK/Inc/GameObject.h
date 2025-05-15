@@ -15,7 +15,7 @@ public:
 	class CComponent* Get_Component(const _wstring& strComponentTag);
 
 public:
-	virtual HRESULT Initialize_ProtoType();
+	virtual HRESULT Initialize_Prototype();
 	virtual HRESULT Initialize(void* pArg);
 	virtual void Priority_Update(_float fTimeDelta);
 	virtual void Update(_float fTimeDelta);

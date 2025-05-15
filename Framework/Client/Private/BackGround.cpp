@@ -12,7 +12,7 @@ CBackGround::CBackGround(const CBackGround& Prototype)
 {
 }
 
-HRESULT CBackGround::Initialize_ProtoType()
+HRESULT CBackGround::Initialize_Prototype()
 {
     return S_OK;
 }
@@ -70,6 +70,9 @@ HRESULT CBackGround::Render()
     m_pGraphic_Device->SetTransform(D3DTS_VIEW, D3DXMatrixLookAtLH(&ViewMatrix, &vEye, &vAt, &vUpDir));
     m_pGraphic_Device->SetTransform(D3DTS_PROJECTION, D3DXMatrixPerspectiveFovLH(&ProjMatrix, D3DXToRadian(60.0f), static_cast<_float>(g_iWinSizeX) / g_iWinSizeY, 0.1f, 1000.f));
 
+    if (FAILED(m_pTextureCom->Bind_Texture(0)))
+        return E_FAIL;
+
     m_pVIBufferCom->Bind_Buffers();
 
     m_pVIBufferCom->Render();
@@ -81,6 +84,11 @@ HRESULT CBackGround::Ready_Components()
 {
     if (FAILED(__super::Add_Component(ENUM_CLASS(LEVEL::LEVEL_STATIC), TEXT("Prototype_Component_VIBuffer_Rect"),
         TEXT("Com_VIBuffer"), reinterpret_cast<CComponent**>(&m_pVIBufferCom))))
+        return E_FAIL;
+
+    /* For.Com_Texture */
+    if (FAILED(__super::Add_Component(ENUM_CLASS(LEVEL::LEVEL_LOGO), TEXT("Prototype_Component_Texture_BackGround"),
+        TEXT("Com_Texture"), reinterpret_cast<CComponent**>(&m_pTextureCom))))
         return E_FAIL;
 
     CTransform::TRANSFORM_DESC TransformDesc {};
@@ -108,7 +116,7 @@ CBackGround* CBackGround::Create(LPDIRECT3DDEVICE9 pGraphic_Device)
 {
     CBackGround* pInstance = new CBackGround(pGraphic_Device);
 
-    if (FAILED(pInstance->Initialize_ProtoType()))
+    if (FAILED(pInstance->Initialize_Prototype()))
     {
         MSG_BOX(TEXT("Failde to Created : CBackGround"));
         Safe_Release(pInstance);
@@ -136,4 +144,5 @@ void CBackGround::Free()
 
     Safe_Release(m_pVIBufferCom);
     Safe_Release(m_pTransformCom);
+    Safe_Release(m_pTextureCom);
 }

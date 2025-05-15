@@ -28,7 +28,7 @@ CComponent* CGameObject::Get_Component(const _wstring& strComponentTag)
 	return iter->second;
 }
 
-HRESULT CGameObject::Initialize_ProtoType()
+HRESULT CGameObject::Initialize_Prototype()
 {
 	return S_OK;
 }

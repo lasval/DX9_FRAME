@@ -10,5 +10,7 @@ namespace Engine
 	
 	enum class MOUSEKEYSTATE { DIM_LB, DIM_RB, DIM_MB, DIM_END };
 	enum class MOUSEMOVESTATE {	DIMS_X, DIMS_Y, DIMS_Z, DIMS_END };
+
+	enum class TEXTURE { RECT, CUBE };
 }
-#endif // Engine_Enum_h__
+#endif
