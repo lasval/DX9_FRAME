@@ -19,9 +19,18 @@ private:
 	virtual ~CTransform() = default;
 
 public:
-	_float3 Get_State(STATE eState) {
-		return *reinterpret_cast<_float3*>(&m_WorldMatrix.m[ENUM_CLASS(eState)][0]);
+	_float3 Get_State(STATE eState) const {
+		return *reinterpret_cast<const _float3*>(&m_WorldMatrix.m[ENUM_CLASS(eState)][0]);
 	}
+
+	_float3 Get_Scaled() const {
+		_float3		vRight = Get_State(STATE::RIGHT);
+		_float3		vUp = Get_State(STATE::UP);
+		_float3		vLook = Get_State(STATE::LOOK);
+
+		return _float3(D3DXVec3Length(&vRight), D3DXVec3Length(&vUp), D3DXVec3Length(&vLook));
+	}
+
 	void Set_State(STATE eState, const _float3& vState) {
 		memcpy(&m_WorldMatrix.m[ENUM_CLASS(eState)][0], &vState, sizeof(_float3));
 	}
@@ -36,13 +45,15 @@ public:
 	void Go_Right(_float fTimeDelta);
 	void Go_Left(_float fTimeDelta);
 
-	void Look_At(_float fTimeDelta);
-	void Move_To(_float fTimeDelta);
+	void Look_At(const _float3& vTarget);
+	void Move_To(const _float3& vTarget, _float fTimeDelta, _float fLimitRange);
 	
-	void Rotation(_float fTimeDelta);
-	void Turn(_float fTimeDelta);
-	void Scaling(_float fTimeDelta);
+	void Rotation(const _float3& vAxis, _float fRadian);
+	void Turn(const _float3& vAxis, _float fTimeDelta);
+	void Scaling(_float fScaleX, _float fScaleY, _float fScaleZ);
 
+public:
+	void Bind_Matrix();
 
 private:
 	_float4x4					m_WorldMatrix = { };

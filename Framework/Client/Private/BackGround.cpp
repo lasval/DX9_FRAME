@@ -27,14 +27,30 @@ HRESULT CBackGround::Initialize(void* pArg)
 
 void CBackGround::Priority_Update(_float fTimeDelta)
 {
-    // 테스트 용
-    int a = 10;
+
 }
 
 void CBackGround::Update(_float fTimeDelta)
 {
-    // 테스트 용
-    int a = 10;
+    if (GetKeyState(VK_UP) < 0)
+    {
+        m_pTransformCom->Go_Straight(fTimeDelta);
+    }
+
+    if (GetKeyState(VK_DOWN) < 0)
+    {
+        m_pTransformCom->Go_Backward(fTimeDelta);
+    }
+
+    if (GetKeyState(VK_LEFT) < 0)
+    {
+        m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), fTimeDelta * -1.f);
+    }
+
+    if (GetKeyState(VK_RIGHT) < 0)
+    {
+        m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), fTimeDelta);
+    }
 }
 
 void CBackGround::Late_Update(_float fTimeDelta)
@@ -44,6 +60,16 @@ void CBackGround::Late_Update(_float fTimeDelta)
 
 HRESULT CBackGround::Render()
 {
+
+    m_pGraphic_Device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+    m_pTransformCom->Bind_Matrix();
+
+    _float4x4			ViewMatrix, ProjMatrix;
+    _float3				vEye{ 0.f, 0.f, -5.f }, vAt{ 0.f, 0.f, 0.f }, vUpDir{ 0.f, 1.f, 0.f };
+
+    m_pGraphic_Device->SetTransform(D3DTS_VIEW, D3DXMatrixLookAtLH(&ViewMatrix, &vEye, &vAt, &vUpDir));
+    m_pGraphic_Device->SetTransform(D3DTS_PROJECTION, D3DXMatrixPerspectiveFovLH(&ProjMatrix, D3DXToRadian(60.0f), static_cast<_float>(g_iWinSizeX) / g_iWinSizeY, 0.1f, 1000.f));
+
     m_pVIBufferCom->Bind_Buffers();
 
     m_pVIBufferCom->Render();
@@ -55,6 +81,14 @@ HRESULT CBackGround::Ready_Components()
 {
     if (FAILED(__super::Add_Component(ENUM_CLASS(LEVEL::LEVEL_STATIC), TEXT("Prototype_Component_VIBuffer_Rect"),
         TEXT("Com_VIBuffer"), reinterpret_cast<CComponent**>(&m_pVIBufferCom))))
+        return E_FAIL;
+
+    CTransform::TRANSFORM_DESC TransformDesc {};
+    TransformDesc.fSpeedPerSec = 5.f;
+    TransformDesc.fRotationPerSec = D3DXToRadian(90.f);
+
+    if (FAILED(__super::Add_Component(ENUM_CLASS(LEVEL::LEVEL_STATIC), TEXT("Prototype_Component_Transform"),
+        TEXT("Com_Transform"), reinterpret_cast<CComponent**>(&m_pTransformCom), &TransformDesc)))
         return E_FAIL;
 
     /*m_pVIBufferCom = dynamic_cast<CVIBuffer_Rect*>(m_pGameInstance->Clone_Prototype(PROTOTYPE::COMPONENT, ));
@@ -101,4 +135,5 @@ void CBackGround::Free()
     __super::Free();
 
     Safe_Release(m_pVIBufferCom);
+    Safe_Release(m_pTransformCom);
 }

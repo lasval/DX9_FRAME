@@ -19,12 +19,6 @@
     <Filter Include="00.System\00.Device\Graphic">
       <UniqueIdentifier>{4246dea1-34dd-411d-8b07-9af48aa3baed}</UniqueIdentifier>
     </Filter>
-    <Filter Include="00.System\00.Device\Input">
-      <UniqueIdentifier>{6fef0aad-ed82-44a2-9a9d-f531b9e2c3dd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="00.System\00.Device\Sound">
-      <UniqueIdentifier>{b1f9ccd4-b55b-413d-b62d-f9651fb29d61}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01.Utility\00.GameInstance">
       <UniqueIdentifier>{cc985cdc-3dcd-49b3-88b0-167ce64bd35e}</UniqueIdentifier>
     </Filter>
@@ -63,6 +57,12 @@
     </Filter>
     <Filter Include="01.Utility\05.Component\Transform">
       <UniqueIdentifier>{af36f4bb-64e6-41b4-97c8-0bd10ebb577b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.System\01. Timer">
+      <UniqueIdentifier>{b0b81d98-17bb-4648-abd3-3fd17a22e008}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.System\01. Timer\Manager">
+      <UniqueIdentifier>{9f519adf-b883-498a-b7e9-a6c830713eb3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -126,6 +126,12 @@
     <ClInclude Include="..\Public\Transform.h">
       <Filter>01.Utility\05.Component\Transform</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Timer_Manager.h">
+      <Filter>00.System\01. Timer\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Timer.h">
+      <Filter>00.System\01. Timer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -169,6 +175,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\Transform.cpp">
       <Filter>01.Utility\05.Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Timer.cpp">
+      <Filter>00.System\01. Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Timer_Manager.cpp">
+      <Filter>00.System\01. Timer\Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
