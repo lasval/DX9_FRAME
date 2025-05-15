@@ -19,11 +19,17 @@ public:
 
 protected:
 	LPDIRECT3DVERTEXBUFFER9			m_pVB = { nullptr };
+	LPDIRECT3DINDEXBUFFER9			m_pIB = { nullptr };
+
 	_uint							m_iNumVertices = { };
 	_uint							m_iVertexStride = { };
 	_uint							m_iFVF = { };
 	D3DPRIMITIVETYPE				m_ePrimitiveType = { };
 	_uint							m_iNumPrimitive = { };
+
+	_uint							m_iIndexStride = { };
+	_uint							m_iNumIndices = {};
+	D3DFORMAT						m_eIndexFormat = {};
 
 public:
 	virtual CComponent* Clone(void* pArg) = 0;
