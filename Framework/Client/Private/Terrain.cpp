@@ -45,14 +45,11 @@ void CTerrain::Late_Update(_float fTimeDelta)
 
 HRESULT CTerrain::Render()
 {
+	m_pGraphic_Device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 	m_pTransformCom->Bind_Matrix();
 
-	_float4x4			ViewMatrix, ProjMatrix;
-	_float3				vEye{ 0.f, 0.f, -1.f }, vAt{ 0.f, 0.f, 0.f }, vUpDir{ 0.f, 1.f, 0.f };
-
-	m_pGraphic_Device->SetTransform(D3DTS_VIEW, D3DXMatrixLookAtLH(&ViewMatrix, &vEye, &vAt, &vUpDir));
-	m_pGraphic_Device->SetTransform(D3DTS_PROJECTION, D3DXMatrixPerspectiveFovLH(&ProjMatrix, D3DXToRadian(60.0f), static_cast<_float>(g_iWinSizeX) / g_iWinSizeY, 0.1f, 1000.f));
-
+	if (FAILED(m_pTextureCom->Bind_Texture(0)))
+		return E_FAIL;
 
 	/* 그리기위해 이용할 자원과 설정들을 장치에 바인딩한다. */
 	m_pVIBufferCom->Bind_Buffers();
@@ -64,10 +61,14 @@ HRESULT CTerrain::Render()
 
 HRESULT CTerrain::Ready_Components()
 {
-	///* For.Com_VIBuffer_Rect */
-	//if (FAILED(__super::Add_Component(ENUM_CLASS(LEVEL::LEVEL_STATIC), TEXT("Prototype_Component_VIBuffer_Rect"),
-	//	TEXT("Com_VIBuffer"), reinterpret_cast<CComponent**>(&m_pVIBufferCom))))
-	//	return E_FAIL;
+	///* For.Com_VIBuffer_Terrain */
+	if (FAILED(__super::Add_Component(ENUM_CLASS(LEVEL::LEVEL_GAMEPLAY), TEXT("Prototype_Component_VIBuffer_Terrain"),
+		TEXT("Com_VIBuffer"), reinterpret_cast<CComponent**>(&m_pVIBufferCom))))
+		return E_FAIL;
+
+	if (FAILED(__super::Add_Component(ENUM_CLASS(LEVEL::LEVEL_GAMEPLAY), TEXT("Prototype_Component_Texture_Terrain"),
+		TEXT("Com_Texture"), reinterpret_cast<CComponent**>(&m_pTextureCom))))
+		return E_FAIL;
 
 	/* For.Com_Transform */
 	CTransform::TRANSFORM_DESC		TransformDesc{};
@@ -113,5 +114,6 @@ void CTerrain::Free()
 
 	Safe_Release(m_pTransformCom);
 	Safe_Release(m_pVIBufferCom);
+	Safe_Release(m_pTextureCom);
 
 }
