@@ -3,6 +3,8 @@
 #include "GameInstance.h"
 
 #include "BackGround.h"
+#include "Terrain.h"
+#include "Camera.h"
 
 CLoader::CLoader(LPDIRECT3DDEVICE9 pGraphic_Device)
 	: m_pGraphic_Device { pGraphic_Device }
@@ -86,25 +88,30 @@ HRESULT CLoader::Loading_For_Logo_Level()
 HRESULT CLoader::Loading_For_GamePlay_Level()
 {
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중입니다."));
-	for (size_t i = 0; i < 99999999; i++)
-	{
-		int a = 10;
-	}
+	/* Prototype_Component_Texture_Terrain */
+ 	if (FAILED(m_pGameInstance->Add_Prototype(ENUM_CLASS(LEVEL::LEVEL_GAMEPLAY), TEXT("Prototype_Component_Texture_Terrain"),
+		CTexture::Create(m_pGraphic_Device, TEXTURE::RECT, TEXT("../Bin/Resources/Textures/Terrain/Tile0.jpg"), 1))))
+		return E_FAIL;
+
 	lstrcpy(m_szLoadingText, TEXT("모델을 로딩중입니다."));
-	for (size_t i = 0; i < 99999999; i++)
-	{
-		int a = 10;
-	}
+	if (FAILED(m_pGameInstance->Add_Prototype(ENUM_CLASS(LEVEL::LEVEL_GAMEPLAY), TEXT("Prototype_Component_VIBuffer_Terrain"),
+		CVIBuffer_Terrain::Create(m_pGraphic_Device, 200, 200))))
+		return E_FAIL;
+
 	lstrcpy(m_szLoadingText, TEXT("쉐이더를 로딩중입니다."));
-	for (size_t i = 0; i < 99999999; i++)
-	{
-		int a = 10;
-	}
+
 	lstrcpy(m_szLoadingText, TEXT("게임오브젝트를 로딩중입니다."));
-	for (size_t i = 0; i < 99999999; i++)
-	{
-		int a = 10;
-	}
+
+	/* Prototype_GameObject_Terrain*/
+	if (FAILED(m_pGameInstance->Add_Prototype(ENUM_CLASS(LEVEL::LEVEL_GAMEPLAY), TEXT("Prototype_GameObject_Terrain"),
+		CTerrain::Create(m_pGraphic_Device))))
+		return E_FAIL;
+
+	/* Prototype_GameObject_Camera*/
+	if (FAILED(m_pGameInstance->Add_Prototype(ENUM_CLASS(LEVEL::LEVEL_GAMEPLAY), TEXT("Prototype_GameObject_Camera"),
+		CCamera::Create(m_pGraphic_Device))))
+		return E_FAIL;
+
 	lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));
 
 	m_isFinished = true;
